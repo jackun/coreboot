@@ -89,6 +89,11 @@ extern MEM_FEAT_BLOCK_MAIN MemFeatMain;
  *----------------------------------------------------------------------------
  */
 
+AGESA_STATUS
+MemMFlowRb (
+  IN OUT   MEM_MAIN_DATA_BLOCK *MemMainPtr
+  );
+
 /*----------------------------------------------------------------------------
  *                            EXPORTED FUNCTIONS
  *

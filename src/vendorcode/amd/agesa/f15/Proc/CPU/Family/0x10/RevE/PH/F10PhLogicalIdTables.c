@@ -68,6 +68,14 @@ RDATA_GROUP (G2_PEI)
  *----------------------------------------------------------------------------------------
  */
 
+VOID
+GetF10PhLogicalIdAndRev (
+     OUT   CONST CPU_LOGICAL_ID_XLAT **PhIdPtr,
+     OUT   UINT8 *NumberOfElements,
+     OUT   UINT64 *LogicalFamily,
+  IN OUT   AMD_CONFIG_PARAMS *StdHeader
+  );
+
 /*----------------------------------------------------------------------------------------
  *                          E X P O R T E D    F U N C T I O N S
  *----------------------------------------------------------------------------------------

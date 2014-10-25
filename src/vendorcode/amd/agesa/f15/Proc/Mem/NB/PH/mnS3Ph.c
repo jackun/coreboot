@@ -115,6 +115,13 @@ MemNS3ExitSelfRefRegPh (
   IN OUT   AMD_CONFIG_PARAMS *StdHeader
   );
 
+BOOLEAN
+MemS3ResumeConstructNBBlockPh (
+  IN OUT   VOID *S3NBPtr,
+  IN OUT   MEM_DATA_STRUCT *MemPtr,
+  IN       UINT8 NodeID
+  );
+
 /*----------------------------------------------------------------------------
  *                          DEFINITIONS AND MACROS
  *

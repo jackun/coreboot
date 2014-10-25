@@ -299,7 +299,7 @@ MemNInitNBDataDA (
   NBPtr->TechBlockSwitch = MemNTechBlockSwitchNb;
   NBPtr->MemNCmnGetSetFieldNb = MemNCmnGetSetFieldDA;
   NBPtr->SetEccSymbolSize = (VOID (*) (MEM_NB_BLOCK *)) memDefRet;
-  NBPtr->TrainingFlow = MemNTrainingFlowNb;
+  NBPtr->TrainingFlow = (VOID (*) (MEM_NB_BLOCK *)) MemNTrainingFlowNb;
   NBPtr->MinDataEyeWidth = MemNMinDataEyeWidthNb;
   MemNInitNBDataNb (NBPtr);
   NBPtr->PollBitField = MemNPollBitFieldNb;

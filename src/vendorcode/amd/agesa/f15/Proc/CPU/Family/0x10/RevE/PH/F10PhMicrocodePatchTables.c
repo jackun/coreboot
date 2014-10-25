@@ -74,6 +74,14 @@ extern CONST UINT8 ROMDATA CpuF10PhNumberOfMicrocodePatches;
  *----------------------------------------------------------------------------------------
  */
 
+VOID
+GetF10PhMicroCodePatchesStruct (
+  IN       CPU_SPECIFIC_SERVICES *FamilySpecificServices,
+     OUT   CONST VOID **PhUcodePtr,
+     OUT   UINT8 *NumberOfElements,
+  IN       AMD_CONFIG_PARAMS *StdHeader
+  );
+
 /*----------------------------------------------------------------------------------------
  *                          E X P O R T E D    F U N C T I O N S
  *----------------------------------------------------------------------------------------

@@ -99,6 +99,13 @@ GetF10DaMicrocodeEquivalenceTable (
      OUT   CONST VOID **DaEquivalenceTablePtr,
      OUT   UINT8 *NumberOfElements,
   IN       AMD_CONFIG_PARAMS *StdHeader
+  );
+VOID
+GetF10DaMicrocodeEquivalenceTable (
+  IN       CPU_SPECIFIC_SERVICES *FamilySpecificServices,
+     OUT   CONST VOID **DaEquivalenceTablePtr,
+     OUT   UINT8 *NumberOfElements,
+  IN       AMD_CONFIG_PARAMS *StdHeader
   )
 {
   *NumberOfElements = ((sizeof (CpuF10DaMicrocodeEquivalenceTable) / sizeof (UINT16)) / 2);

@@ -69,6 +69,14 @@ RDATA_GROUP (G2_PEI)
  *----------------------------------------------------------------------------------------
  */
 
+VOID
+GetF10PhMicrocodeEquivalenceTable (
+  IN       CPU_SPECIFIC_SERVICES *FamilySpecificServices,
+     OUT   CONST VOID **PhEquivalenceTablePtr,
+     OUT   UINT8 *NumberOfElements,
+  IN       AMD_CONFIG_PARAMS *StdHeader
+  );
+
 /*----------------------------------------------------------------------------------------
  *                          E X P O R T E D    F U N C T I O N S
  *----------------------------------------------------------------------------------------

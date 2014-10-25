@@ -87,6 +87,12 @@ RDATA_GROUP (G2_PEI)
  *----------------------------------------------------------------------------
  */
 
+BOOLEAN
+MemNIdentifyDimmConstructorRb (
+  IN OUT   MEM_NB_BLOCK *NBPtr,
+  IN OUT   MEM_DATA_STRUCT *MemPtr,
+  IN       UINT8 NodeID
+  );
 
 /*----------------------------------------------------------------------------
  *                            EXPORTED FUNCTIONS

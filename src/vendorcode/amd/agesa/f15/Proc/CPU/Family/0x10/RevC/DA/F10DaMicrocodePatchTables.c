@@ -98,6 +98,13 @@ GetF10DaMicroCodePatchesStruct (
      OUT   CONST VOID **DaUcodePtr,
      OUT   UINT8 *NumberOfElements,
   IN       AMD_CONFIG_PARAMS *StdHeader
+  );
+VOID
+GetF10DaMicroCodePatchesStruct (
+  IN       CPU_SPECIFIC_SERVICES *FamilySpecificServices,
+     OUT   CONST VOID **DaUcodePtr,
+     OUT   UINT8 *NumberOfElements,
+  IN       AMD_CONFIG_PARAMS *StdHeader
   )
 {
   *NumberOfElements = CpuF10DaNumberOfMicrocodePatches;

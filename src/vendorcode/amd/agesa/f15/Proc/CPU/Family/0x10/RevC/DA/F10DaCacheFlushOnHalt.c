@@ -107,6 +107,13 @@ SetF10DaCacheFlushOnHaltRegister (
   IN       UINT64                       EntryPoint,
   IN       PLATFORM_CONFIGURATION       *PlatformConfig,
   IN       AMD_CONFIG_PARAMS            *StdHeader
+  );
+VOID
+SetF10DaCacheFlushOnHaltRegister (
+  IN       CPU_CFOH_FAMILY_SERVICES     *FamilySpecificServices,
+  IN       UINT64                       EntryPoint,
+  IN       PLATFORM_CONFIGURATION       *PlatformConfig,
+  IN       AMD_CONFIG_PARAMS            *StdHeader
   )
 {
   UINT32       CoreCount;

@@ -102,7 +102,9 @@
     #ifdef OPTION_FAMILY15H
       #if OPTION_FAMILY15H == TRUE
         #if OPTION_FAMILY15H_OR == TRUE
+        #if OPTION_FAMILY10H_PH != TRUE
           extern CONST CPU_FEATURE_DESCRIPTOR ROMDATA CpuFeatureIoCstate;
+        #endif
           #undef OPTION_IO_CSTATE_FEAT
           #define OPTION_IO_CSTATE_FEAT &CpuFeatureIoCstate,
           extern CONST IO_CSTATE_FAMILY_SERVICES ROMDATA F15OrIoCstateSupport;

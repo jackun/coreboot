@@ -71,6 +71,11 @@ RDATA_GROUP (G2_PEI)
 
 #define FILECODE PROC_MEM_NB_DA_MNPARTRAINDA_FILECODE
 
+BOOLEAN
+MemFParallelTrainingDA (
+  IN OUT   MEM_NB_BLOCK *NBPtr
+  );
+
 /*-----------------------------------------------------------------------------
 *                                EXPORTED FUNCTIONS
 *

@@ -36,7 +36,9 @@
 #include <AGESA.h>
 #include <Options.h>
 #include "amdfam10.h"
+#include <northbridge/amd/agesa/agesawrapper_call.h>
 
+extern void setup_bsp_ramtop(void);
 extern uint32_t agesawrapper_amdinitmid(void);
 
 typedef struct amdfam10_sysconf_t sys_info_conf_t;

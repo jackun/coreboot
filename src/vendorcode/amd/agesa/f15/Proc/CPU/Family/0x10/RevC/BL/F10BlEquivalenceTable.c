@@ -92,6 +92,13 @@ STATIC CONST UINT16 ROMDATA CpuF10BlMicrocodeEquivalenceTable[] =
  *  @param[in]   StdHeader                Header for library and services.
  *
  */
+ VOID
+GetF10BlMicrocodeEquivalenceTable (
+  IN       CPU_SPECIFIC_SERVICES *FamilySpecificServices,
+     OUT   CONST VOID **BlEquivalenceTablePtr,
+     OUT   UINT8 *NumberOfElements,
+  IN       AMD_CONFIG_PARAMS *StdHeader
+  );
 VOID
 GetF10BlMicrocodeEquivalenceTable (
   IN       CPU_SPECIFIC_SERVICES *FamilySpecificServices,

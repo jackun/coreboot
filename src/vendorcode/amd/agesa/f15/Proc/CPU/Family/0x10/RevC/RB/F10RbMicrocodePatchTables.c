@@ -70,6 +70,13 @@ RDATA_GROUP (G2_PEI)
  *           P R O T O T Y P E S     O F     L O C A L     F U N C T I O N S
  *----------------------------------------------------------------------------------------
  */
+ VOID
+GetF10RbMicroCodePatchesStruct (
+  IN       CPU_SPECIFIC_SERVICES *FamilySpecificServices,
+     OUT   CONST VOID **RbUcodePtr,
+     OUT   UINT8 *NumberOfElements,
+  IN       AMD_CONFIG_PARAMS *StdHeader
+  );
 
 /*----------------------------------------------------------------------------------------
  *                          E X P O R T E D    F U N C T I O N S

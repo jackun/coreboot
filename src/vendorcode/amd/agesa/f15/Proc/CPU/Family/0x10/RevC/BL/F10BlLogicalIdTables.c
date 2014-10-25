@@ -84,7 +84,13 @@ STATIC CONST CPU_LOGICAL_ID_XLAT ROMDATA CpuF10BlLogicalIdAndRevArray[] =
     AMD_F10_BL_C3
   }
 };
-
+VOID
+GetF10BlLogicalIdAndRev (
+     OUT   CONST CPU_LOGICAL_ID_XLAT **BlIdPtr,
+     OUT   UINT8 *NumberOfElements,
+     OUT   UINT64 *LogicalFamily,
+  IN OUT   AMD_CONFIG_PARAMS *StdHeader
+  );
 VOID
 GetF10BlLogicalIdAndRev (
      OUT   CONST CPU_LOGICAL_ID_XLAT **BlIdPtr,

@@ -79,26 +79,40 @@ extern CONST REGISTER_TABLE ROMDATA F10SingleLinkPciRegisterTable;
 extern CONST REGISTER_TABLE ROMDATA F10WorkaroundsTable;
 extern F_GET_EARLY_INIT_TABLE GetF10EarlyInitOnCoreTable;
 
+//coreboot sets everything to -Werror -Wall so define only once
+#if OPTION_FAMILY10H_BL == TRUE || OPTION_FAMILY10H_DA == TRUE || OPTION_FAMILY10H_RB == TRUE
 
-/*
- * Install family 10h model 5 support
- */
-#ifdef OPTION_FAMILY10H_BL
-  #if OPTION_FAMILY10H_BL == TRUE
     extern CONST REGISTER_TABLE ROMDATA F10RevCPciRegisterTable;
     extern CONST REGISTER_TABLE ROMDATA F10RevCMsrRegisterTable;
     extern CONST REGISTER_TABLE ROMDATA F10RevCHtPhyRegisterTable;
-    extern CONST REGISTER_TABLE ROMDATA F10BlPciRegisterTable;
-    extern CONST REGISTER_TABLE ROMDATA F10BlMsrRegisterTable;
-    extern CONST REGISTER_TABLE ROMDATA F10BlHtPhyRegisterTable;
-    extern F_CPU_GET_FAMILY_SPECIFIC_ARRAY GetF10BlMicroCodePatchesStruct;
-    extern F_CPU_GET_FAMILY_SPECIFIC_ARRAY GetF10BlMicrocodeEquivalenceTable;
     extern F_CPU_GET_IDD_MAX F10CommonRevCGetProcIddMax;
     extern F_CPU_GET_NB_PSTATE_INFO F10CommonRevCGetNbPstateInfo;
     extern F_CPU_GET_MIN_MAX_NB_FREQ F10RevCGetMinMaxNbFrequency;
     extern F_CPU_IS_NBCOF_INIT_NEEDED F10CommonRevCGetNbCofVidUpdate;
     extern F_IS_NB_PSTATE_ENABLED F10CommonRevCIsNbPstateEnabled;
     extern F_CPU_NUMBER_OF_PHYSICAL_CORES F10CommonRevCGetNumberOfPhysicalCores;
+
+#endif
+
+/*
+ * Install family 10h model 5 support
+ */
+#ifdef OPTION_FAMILY10H_BL
+  #if OPTION_FAMILY10H_BL == TRUE
+    //extern CONST REGISTER_TABLE ROMDATA F10RevCPciRegisterTable;
+    //extern CONST REGISTER_TABLE ROMDATA F10RevCMsrRegisterTable;
+    //extern CONST REGISTER_TABLE ROMDATA F10RevCHtPhyRegisterTable;
+    extern CONST REGISTER_TABLE ROMDATA F10BlPciRegisterTable;
+    extern CONST REGISTER_TABLE ROMDATA F10BlMsrRegisterTable;
+    extern CONST REGISTER_TABLE ROMDATA F10BlHtPhyRegisterTable;
+    extern F_CPU_GET_FAMILY_SPECIFIC_ARRAY GetF10BlMicroCodePatchesStruct;
+    extern F_CPU_GET_FAMILY_SPECIFIC_ARRAY GetF10BlMicrocodeEquivalenceTable;
+    //extern F_CPU_GET_IDD_MAX F10CommonRevCGetProcIddMax;
+    //extern F_CPU_GET_NB_PSTATE_INFO F10CommonRevCGetNbPstateInfo;
+    //extern F_CPU_GET_MIN_MAX_NB_FREQ F10RevCGetMinMaxNbFrequency;
+    //extern F_CPU_IS_NBCOF_INIT_NEEDED F10CommonRevCGetNbCofVidUpdate;
+    //extern F_IS_NB_PSTATE_ENABLED F10CommonRevCIsNbPstateEnabled;
+    //extern F_CPU_NUMBER_OF_PHYSICAL_CORES F10CommonRevCGetNumberOfPhysicalCores;
 
     #if USES_REGISTER_TABLES == TRUE
       CONST REGISTER_TABLE ROMDATA *F10BlRegisterTables[] =
@@ -412,21 +426,21 @@ extern F_GET_EARLY_INIT_TABLE GetF10EarlyInitOnCoreTable;
  */
 #ifdef OPTION_FAMILY10H_DA
   #if OPTION_FAMILY10H_DA == TRUE
-    extern CONST REGISTER_TABLE ROMDATA F10RevCPciRegisterTable;
-    extern CONST REGISTER_TABLE ROMDATA F10RevCMsrRegisterTable;
-    extern CONST REGISTER_TABLE ROMDATA F10RevCHtPhyRegisterTable;
+    //extern CONST REGISTER_TABLE ROMDATA F10RevCPciRegisterTable;
+    //extern CONST REGISTER_TABLE ROMDATA F10RevCMsrRegisterTable;
+    //extern CONST REGISTER_TABLE ROMDATA F10RevCHtPhyRegisterTable;
     extern CONST REGISTER_TABLE ROMDATA F10DaPciRegisterTable;
     extern CONST REGISTER_TABLE ROMDATA F10DaMsrRegisterTable;
     extern CONST REGISTER_TABLE ROMDATA F10DaHtPhyRegisterTable;
     extern F_CPU_GET_FAMILY_SPECIFIC_ARRAY GetF10DaMicroCodePatchesStruct;
     extern F_CPU_GET_FAMILY_SPECIFIC_ARRAY GetF10DaMicrocodeEquivalenceTable;
-    extern F_CPU_GET_IDD_MAX F10CommonRevCGetProcIddMax;
-    extern F_CPU_GET_NB_PSTATE_INFO F10CommonRevCGetNbPstateInfo;
-    extern F_CPU_GET_MIN_MAX_NB_FREQ F10RevCGetMinMaxNbFrequency;
-    extern F_CPU_IS_NBCOF_INIT_NEEDED F10CommonRevCGetNbCofVidUpdate;
+    //extern F_CPU_GET_IDD_MAX F10CommonRevCGetProcIddMax;
+    //extern F_CPU_GET_NB_PSTATE_INFO F10CommonRevCGetNbPstateInfo;
+    //extern F_CPU_GET_MIN_MAX_NB_FREQ F10RevCGetMinMaxNbFrequency;
+    //extern F_CPU_IS_NBCOF_INIT_NEEDED F10CommonRevCGetNbCofVidUpdate;
     extern F_CPU_SET_CFOH_REG SetF10DaCacheFlushOnHaltRegister;
-    extern F_IS_NB_PSTATE_ENABLED F10CommonRevCIsNbPstateEnabled;
-    extern F_CPU_NUMBER_OF_PHYSICAL_CORES F10CommonRevCGetNumberOfPhysicalCores;
+    //extern F_IS_NB_PSTATE_ENABLED F10CommonRevCIsNbPstateEnabled;
+    //extern F_CPU_NUMBER_OF_PHYSICAL_CORES F10CommonRevCGetNumberOfPhysicalCores;
 
     #if USES_REGISTER_TABLES == TRUE
       CONST REGISTER_TABLE ROMDATA *F10DaRegisterTables[] =
@@ -709,7 +723,9 @@ extern F_GET_EARLY_INIT_TABLE GetF10EarlyInitOnCoreTable;
           #define F10_DA_UCODE_C7 &CpuF10MicrocodePatch010000c7,
         #endif
         #if (OPTION_S1G4_SOCKET_SUPPORT == TRUE) || (OPTION_AM3_SOCKET_SUPPORT == TRUE) || (OPTION_ASB2_SOCKET_SUPPORT == TRUE)
+          #if OPTION_FAMILY10H_BL != TRUE
           extern  CONST MICROCODE_PATCHES ROMDATA CpuF10MicrocodePatch010000c8;
+          #endif
           #undef F10_DA_UCODE_C8
           #define F10_DA_UCODE_C8 &CpuF10MicrocodePatch010000c8,
         #endif
@@ -1384,20 +1400,20 @@ extern F_GET_EARLY_INIT_TABLE GetF10EarlyInitOnCoreTable;
  */
 #ifdef OPTION_FAMILY10H_RB
   #if OPTION_FAMILY10H_RB == TRUE
-    extern CONST REGISTER_TABLE ROMDATA F10RevCPciRegisterTable;
-    extern CONST REGISTER_TABLE ROMDATA F10RevCMsrRegisterTable;
-    extern CONST REGISTER_TABLE ROMDATA F10RevCHtPhyRegisterTable;
+    //extern CONST REGISTER_TABLE ROMDATA F10RevCPciRegisterTable;
+    //extern CONST REGISTER_TABLE ROMDATA F10RevCMsrRegisterTable;
+    //extern CONST REGISTER_TABLE ROMDATA F10RevCHtPhyRegisterTable;
     extern CONST REGISTER_TABLE ROMDATA F10RbPciRegisterTable;
     extern CONST REGISTER_TABLE ROMDATA F10RbMsrRegisterTable;
     extern CONST REGISTER_TABLE ROMDATA F10RbHtPhyRegisterTable;
     extern F_CPU_GET_FAMILY_SPECIFIC_ARRAY GetF10RbMicroCodePatchesStruct;
     extern F_CPU_GET_FAMILY_SPECIFIC_ARRAY GetF10RbMicrocodeEquivalenceTable;
-    extern F_CPU_GET_IDD_MAX F10CommonRevCGetProcIddMax;
-    extern F_CPU_GET_NB_PSTATE_INFO F10CommonRevCGetNbPstateInfo;
-    extern F_CPU_GET_MIN_MAX_NB_FREQ F10RevCGetMinMaxNbFrequency;
-    extern F_CPU_IS_NBCOF_INIT_NEEDED F10CommonRevCGetNbCofVidUpdate;
-    extern F_IS_NB_PSTATE_ENABLED F10CommonRevCIsNbPstateEnabled;
-    extern F_CPU_NUMBER_OF_PHYSICAL_CORES F10CommonRevCGetNumberOfPhysicalCores;
+    //extern F_CPU_GET_IDD_MAX F10CommonRevCGetProcIddMax;
+    //extern F_CPU_GET_NB_PSTATE_INFO F10CommonRevCGetNbPstateInfo;
+    //extern F_CPU_GET_MIN_MAX_NB_FREQ F10RevCGetMinMaxNbFrequency;
+    //extern F_CPU_IS_NBCOF_INIT_NEEDED F10CommonRevCGetNbCofVidUpdate;
+    //extern F_IS_NB_PSTATE_ENABLED F10CommonRevCIsNbPstateEnabled;
+    //extern F_CPU_NUMBER_OF_PHYSICAL_CORES F10CommonRevCGetNumberOfPhysicalCores;
 
     #if USES_REGISTER_TABLES == TRUE
       CONST REGISTER_TABLE ROMDATA *F10RbRegisterTables[] =
@@ -1679,8 +1695,10 @@ extern F_GET_EARLY_INIT_TABLE GetF10EarlyInitOnCoreTable;
       #if AGESA_ENTRY_INIT_EARLY == TRUE
         #if OPTION_AM3_SOCKET_SUPPORT == TRUE
           extern  CONST MICROCODE_PATCHES ROMDATA CpuF10MicrocodePatch01000085;
+          #if OPTION_FAMILY10H_BL != TRUE
           extern  CONST MICROCODE_PATCHES ROMDATA CpuF10MicrocodePatch010000c6;
           extern  CONST MICROCODE_PATCHES ROMDATA CpuF10MicrocodePatch010000c8;
+          #endif
           #undef F10_RB_UCODE_85
           #define F10_RB_UCODE_85 &CpuF10MicrocodePatch01000085,
           #undef F10_RB_UCODE_C6

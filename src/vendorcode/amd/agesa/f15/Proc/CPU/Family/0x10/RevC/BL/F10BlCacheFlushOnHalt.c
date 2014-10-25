@@ -100,6 +100,13 @@ extern OPTION_MULTISOCKET_CONFIGURATION OptionMultiSocketConfiguration;
  *    @param[in]       PlatformConfig           Contains the runtime modifiable feature input data.
  *    @param[in]       StdHeader                Config Handle for library, services.
  */
+ VOID
+SetF10BlCacheFlushOnHaltRegister (
+  IN       CPU_CFOH_FAMILY_SERVICES     *FamilySpecificServices,
+  IN       UINT64                       EntryPoint,
+  IN       PLATFORM_CONFIGURATION       *PlatformConfig,
+  IN       AMD_CONFIG_PARAMS            *StdHeader
+  );
 VOID
 SetF10BlCacheFlushOnHaltRegister (
   IN       CPU_CFOH_FAMILY_SERVICES     *FamilySpecificServices,

@@ -125,7 +125,9 @@
     #ifdef OPTION_FAMILY15H
       #if OPTION_FAMILY15H == TRUE
         #if (OPTION_FAMILY15H_OR == TRUE)
+        #if OPTION_FAMILY10H_PH != TRUE
           extern CONST CPU_FEATURE_DESCRIPTOR ROMDATA CpuFeatureCpb;
+        #endif
           #undef OPTION_CPB_FEAT
           #define OPTION_CPB_FEAT &CpuFeatureCpb,
           extern CONST CPB_FAMILY_SERVICES ROMDATA F15OrCpbSupport;

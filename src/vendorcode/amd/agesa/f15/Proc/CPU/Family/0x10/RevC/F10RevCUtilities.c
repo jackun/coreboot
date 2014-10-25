@@ -77,6 +77,66 @@ extern OPTION_MULTISOCKET_CONFIGURATION OptionMultiSocketConfiguration;
  *           P R O T O T Y P E S     O F     L O C A L     F U N C T I O N S
  *----------------------------------------------------------------------------------------
  */
+BOOLEAN
+F10CommonRevCSetDownCoreRegister (
+  IN       CPU_CORE_LEVELING_FAMILY_SERVICES *FamilySpecificServices,
+  IN       UINT32 *Socket,
+  IN       UINT32 *Module,
+  IN       UINT32 *LeveledCores,
+  IN       CORE_LEVELING_TYPE CoreLevelMode,
+  IN       AMD_CONFIG_PARAMS *StdHeader
+  );
+
+BOOLEAN
+F10CommonRevCGetProcIddMax (
+  IN       CPU_SPECIFIC_SERVICES  *FamilySpecificServices,
+  IN       UINT8                  Pstate,
+     OUT   UINT32                 *ProcIddMax,
+  IN       AMD_CONFIG_PARAMS      *StdHeader
+  );
+
+BOOLEAN
+F10CommonRevCGetNbCofVidUpdate (
+  IN       CPU_SPECIFIC_SERVICES *FamilySpecificServices,
+  IN       PCI_ADDR *PciAddress,
+     OUT   BOOLEAN *NbVidUpdateAll,
+  IN       AMD_CONFIG_PARAMS *StdHeader
+  );
+
+BOOLEAN
+F10CommonRevCGetNbPstateInfo (
+  IN       CPU_SPECIFIC_SERVICES  *FamilySpecificServices,
+  IN       PLATFORM_CONFIGURATION *PlatformConfig,
+  IN       PCI_ADDR               *PciAddress,
+  IN       UINT32                 NbPstate,
+     OUT   UINT32                 *FreqNumeratorInMHz,
+     OUT   UINT32                 *FreqDivisor,
+     OUT   UINT32                 *VoltageInuV,
+  IN       AMD_CONFIG_PARAMS      *StdHeader
+  );
+
+AGESA_STATUS
+F10RevCGetMinMaxNbFrequency (
+  IN       CPU_SPECIFIC_SERVICES  *FamilySpecificServices,
+  IN       PLATFORM_CONFIGURATION *PlatformConfig,
+  IN       PCI_ADDR               *PciAddress,
+     OUT   UINT32                 *MinFreqInMHz,
+     OUT   UINT32                 *MaxFreqInMHz,
+  IN       AMD_CONFIG_PARAMS      *StdHeader
+  );
+
+BOOLEAN
+F10CommonRevCIsNbPstateEnabled (
+  IN       CPU_SPECIFIC_SERVICES  *FamilySpecificServices,
+  IN       PLATFORM_CONFIGURATION *PlatformConfig,
+  IN       AMD_CONFIG_PARAMS      *StdHeader
+  );
+
+UINT8
+F10CommonRevCGetNumberOfPhysicalCores (
+  IN       CPU_SPECIFIC_SERVICES  *FamilySpecificServices,
+  IN       AMD_CONFIG_PARAMS      *StdHeader
+  );
 
 /*----------------------------------------------------------------------------------------
  *                          E X P O R T E D    F U N C T I O N S

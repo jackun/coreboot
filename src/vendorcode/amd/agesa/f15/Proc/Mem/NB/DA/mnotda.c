@@ -89,7 +89,7 @@ MemNSetOtherTimingDA (
   );
 
 VOID
-STATIC
+//STATIC
 MemNPowerDownCtlDA (
   IN OUT   MEM_NB_BLOCK *NBPtr
   );
@@ -175,7 +175,7 @@ MemNSetOtherTimingDA (
  */
 
 VOID
-STATIC
+//STATIC
 MemNPowerDownCtlDA (
   IN OUT   MEM_NB_BLOCK *NBPtr
   )

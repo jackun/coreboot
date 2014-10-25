@@ -92,6 +92,13 @@ GetF10DaLogicalIdAndRev (
      OUT   UINT8 *NumberOfElements,
      OUT   UINT64 *LogicalFamily,
   IN OUT   AMD_CONFIG_PARAMS *StdHeader
+  );
+VOID
+GetF10DaLogicalIdAndRev (
+     OUT   CONST CPU_LOGICAL_ID_XLAT **DaIdPtr,
+     OUT   UINT8 *NumberOfElements,
+     OUT   UINT64 *LogicalFamily,
+  IN OUT   AMD_CONFIG_PARAMS *StdHeader
   )
 {
   *NumberOfElements = (sizeof (CpuF10DaLogicalIdAndRevArray) / sizeof (CPU_LOGICAL_ID_XLAT));

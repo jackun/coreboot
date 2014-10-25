@@ -98,6 +98,13 @@ GetF10BlMicroCodePatchesStruct (
      OUT   CONST VOID **BlUcodePtr,
      OUT   UINT8 *NumberOfElements,
   IN       AMD_CONFIG_PARAMS *StdHeader
+  );
+VOID
+GetF10BlMicroCodePatchesStruct (
+  IN       CPU_SPECIFIC_SERVICES *FamilySpecificServices,
+     OUT   CONST VOID **BlUcodePtr,
+     OUT   UINT8 *NumberOfElements,
+  IN       AMD_CONFIG_PARAMS *StdHeader
   )
 {
   *NumberOfElements = CpuF10BlNumberOfMicrocodePatches;
