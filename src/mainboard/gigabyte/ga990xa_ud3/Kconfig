@@ -1,0 +1,146 @@
+#FIXME everything
+if BOARD_GIGABYTE_GA990XA_UD3
+
+config BOARD_SPECIFIC_OPTIONS # dummy
+	def_bool y
+	select ARCH_X86
+	select DIMM_DDR3
+#	select DIMM_REGISTERED
+	select DIMM_UNREGISTERED
+	select CPU_AMD_AGESA_FAMILY15
+	select CPU_AMD_SOCKET_AM3R2
+	select NORTHBRIDGE_AMD_AGESA_FAMILY15
+#	select NORTHBRIDGE_AMD_AGESA_FAMILY10
+	select NORTHBRIDGE_AMD_CIMX_RD890
+#	select SOUTHBRIDGE_AMD_CIMX_SB900
+	select SOUTHBRIDGE_AMD_CIMX_SB800
+#	select SUPERIO_ITE_IT8720F
+	select SUPERIO_ITE_IT8718F
+	select HAVE_OPTION_TABLE
+	select HAVE_PIRQ_TABLE
+	select HAVE_MP_TABLE
+#	select GENERATE_ACPI_TABLES
+	select SB_HT_CHAIN_UNITID_OFFSET_ONLY
+	select LIFT_BSP_APIC_ID
+	select SERIAL_CPU_INIT
+	select AMDMCT
+	select HAVE_ACPI_TABLES
+	select BOARD_ROMSIZE_KB_4096
+	select ENABLE_APIC_EXT_ID
+#	select GFXUMA
+#	select QRANK_DIMM_SUPPORT
+
+#config SATA_CONTROLLER_MODE
+#	hex
+#	default 0x0
+
+# Needs ROM unless using Seabios(?)
+config SB800_SATA_AHCI
+	bool
+	default y
+
+config MAINBOARD_DIR
+	string
+	default gigabyte/ga990xa_ud3
+
+config TTYS0_BASE
+	hex
+	default 0x3f8
+
+config TTYS0_BAUD
+	int
+	default 115200
+
+config TTYS0_BASE
+	hex
+	default 0x3f8
+
+config TTYS0_LCS
+	int
+	default 3
+
+config DEFAULT_CONSOLE_LOGLEVEL
+	int
+	default 9
+
+config APIC_ID_OFFSET
+	hex
+	default 0x0
+
+config MAINBOARD_PART_NUMBER
+	string
+	default "GA-990XA-UD3"
+
+config MAX_CPUS
+	int
+	default 8
+
+config MAX_PHYSICAL_CPUS
+	int
+	default 2
+	#default 1
+
+config LOGICAL_CPUS
+	bool
+	default y
+
+config IOAPIC
+	bool
+	default y
+
+#config SMP
+#	bool
+#	default y
+
+config SB_HT_CHAIN_ON_BUS0
+	int
+	default 1
+
+config HT_CHAIN_END_UNITID_BASE
+	hex
+	default 0x1
+
+config HT_CHAIN_UNITID_BASE
+	hex
+	default 0x0
+
+config IRQ_SLOT_COUNT
+	int
+	default 11
+
+config MMCONF_BASE_ADDRESS
+	hex
+	default 0xe0000000
+
+#AGESA has some?
+#config AMD_UCODE_PATCH_FILE
+#	string
+#	default "mc_patch_010000b6.h"
+
+config RAMTOP
+	hex
+	default 0x2000000
+
+config HEAP_SIZE
+	hex
+	default 0xc0000
+
+config RAMBASE
+	hex
+	default 0x200000
+
+#just in case
+config DRIVERS_PS2_KEYBOARD
+	bool
+	default y
+
+config HW_MEM_HOLE_SIZEK
+	hex
+	default 0x200000
+
+#just in case
+config HW_MEM_HOLE_SIZE_AUTO_INC
+	bool
+	default n
+
+endif # BOARD_GIGABYTE_GA990XA_UD3

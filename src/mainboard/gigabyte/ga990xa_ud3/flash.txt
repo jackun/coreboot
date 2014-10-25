@@ -1,0 +1,193 @@
+flashrom v0.9.7-r1764 on Linux 3.12.3-1-ARCH (x86_64)
+flashrom is free software, get the source code at http://www.flashrom.org
+
+flashrom was built with libpci 3.2.0, GCC 4.8.2 20131219 (prerelease), little endian
+Command line (3 args): ./flashrom -V -p internal
+Calibrating delay loop... OS timer resolution is 1 usecs, 1127M loops per second, 10 myus = 10 us, 100 myus = 100 us, 1000 myus = 1000 us, 10000 myus = 7010 us, 4 myus = 4 us, OK.
+Initializing internal programmer
+No coreboot table found.
+Using Internal DMI decoder.
+DMI string chassis-type: "Desktop"
+DMI string system-manufacturer: "Gigabyte Technology Co., Ltd."
+DMI string system-product-name: "GA-990XA-UD3"
+DMI string system-version: " "
+DMI string baseboard-manufacturer: "Gigabyte Technology Co., Ltd."
+DMI string baseboard-product-name: "GA-990XA-UD3"
+DMI string baseboard-version: "x.x"
+Found ITE Super I/O, ID 0x8720 on port 0x2e
+Found chipset "AMD SB7x0/SB8x0/SB9x0" with PCI ID 1002:439d. Enabling flash write... SPI base address is at 0xfec10000
+SB8xx/SB9xx/Hudson-1 detected.
+SpiRomEnable=1, PrefetchEnSPIFromIMC=0, PrefetchEnSPIFromHost=1
+(0x0fc83005) SpiArbEnable=1, SpiAccessMacRomEn=1, SpiHostAccessRomEn=1, ArbWaitCount=7, SpiBridgeDisable=1, SpiBusy=0
+Using SPI_CS0
+GPIO11 used for SPI_DO
+GPIO12 used for SPI_DI
+GPIO31 used for SPI_HOLD
+GPIO32 used for SPI_CS
+GPIO47 used for SPI_CLK
+Fast Reads are disabled
+NormSpeed is 16.5 MHz
+Setting SPI clock to 16.5 MHz (0x3).
+IMC is not active.
+ROM strap override is not active
+OK.
+No IT87* serial flash segment enabled.
+The following protocols are supported: LPC, FWH, SPI.
+Probing for AMIC A25L05PT, 64 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for AMIC A25L05PU, 64 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for AMIC A25L10PT, 128 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for AMIC A25L10PU, 128 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for AMIC A25L20PT, 256 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for AMIC A25L20PU, 256 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for AMIC A25L40PT, 512 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for AMIC A25L40PU, 512 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for AMIC A25L80P, 1024 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for AMIC A25L16PT, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for AMIC A25L16PU, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for AMIC A25L512, 64 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for AMIC A25L010, 128 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for AMIC A25L020, 256 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for AMIC A25L040, 512 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for AMIC A25L080, 1024 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for AMIC A25L016, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for AMIC A25L032, 4096 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for AMIC A25LQ16, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for AMIC A25LQ032/A25LQ32A, 4096 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for AMIC A25LQ64, 8192 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT25DF021, 256 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT25DF041A, 512 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT25DF081, 1024 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT25DF081A, 1024 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT25DF161, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT25DF321, 4096 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT25DF321A, 4096 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT25DF641(A), 8192 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT25DQ161, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT25F512, 64 kB: probe_spi_at25f: id1 0x00, id2 0x00
+Probing for Atmel AT25F512A, 64 kB: probe_spi_at25f: id1 0x00, id2 0x00
+Probing for Atmel AT25F512B, 64 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT25F1024(A), 128 kB: probe_spi_at25f: id1 0x00, id2 0x00
+Probing for Atmel AT25F2048, 256 kB: probe_spi_at25f: id1 0x00, id2 0x00
+Probing for Atmel AT25F4096, 512 kB: probe_spi_at25f: id1 0x00, id2 0x00
+Probing for Atmel AT25FS010, 128 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT25FS040, 512 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT26DF041, 512 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT26DF081A, 1024 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT26DF161, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT26DF161A, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT26F004, 512 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT45CS1282, 16896 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT45DB011D, 128 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT45DB021D, 256 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT45DB041D, 512 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT45DB081D, 1024 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT45DB161D, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT45DB321C, 4224 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT45DB321D, 4096 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT45DB321E, 4096 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Atmel AT45DB642D, 8192 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for ESMT F25L008A, 1024 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25B05, 64 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25B05T, 64 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25B10, 128 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25B10T, 128 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25B20, 256 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25B20T, 256 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25B40, 512 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25B40T, 512 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25B80, 1024 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25B80T, 1024 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25B16, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25B16T, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25B32, 4096 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25B32T, 4096 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25B64, 8192 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25B64T, 8192 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25F05, 64 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25F10, 128 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25F20, 256 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25F40, 512 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25F80, 1024 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25F16, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25F32, 4096 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25F64, 8192 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25Q40, 512 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25Q80(A), 1024 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25Q16, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25Q32(A/B), 4096 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25Q64, 8192 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25Q128, 16384 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25QH16, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25QH32, 4096 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25QH64, 8192 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25QH128, 16384 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25S10, 128 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25S20, 256 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25S40, 512 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25S80, 1024 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25S16, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25S32, 4096 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Eon EN25S64, 8192 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for GigaDevice GD25LQ32, 4096 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for GigaDevice GD25Q512, 64 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for GigaDevice GD25Q10, 128 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for GigaDevice GD25Q20(B), 256 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for GigaDevice GD25Q40(B), 512 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for GigaDevice GD25Q80(B), 1024 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for GigaDevice GD25Q16(B), 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for GigaDevice GD25Q32(B), 4096 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for GigaDevice GD25Q64(B), 8192 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for GigaDevice GD25Q128B, 16384 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for GigaDevice GD25T80, 1024 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Intel 25F160S33B8, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Intel 25F160S33T8, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Intel 25F320S33B8, 4096 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Intel 25F320S33T8, 4096 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Intel 25F640S33B8, 8192 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Intel 25F640S33T8, 8192 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Macronix MX25L512(E)/MX25V512(C), 64 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Macronix MX25L1005(C)/MX25L1006E, 128 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Macronix MX25L2005(C), 256 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Macronix MX25L4005(A/C), 512 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Macronix MX25L8005/MX25V8005, 1024 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Macronix MX25L1605, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Macronix MX25L1605A/MX25L1606E, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Macronix MX25L1605D/MX25L1608D, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Macronix MX25L1635D, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Macronix MX25L1635E, 2048 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Probing for Macronix MX25L3205(A), 4096 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Found Macronix flash chip "MX25L3205(A)" (4096 kB, SPI) at physical address 0xffc00000.
+Chip status register is 0x00.
+Chip status register: Status Register Write Disable (SRWD, SRP, ...) is not set
+Chip status register: Bit 6 is not set
+Chip status register: Bit 5 is not set
+Chip status register: Block Protect 2 (BP2) is not set
+Chip status register: Block Protect 1 (BP1) is not set
+Chip status register: Block Protect 0 (BP0) is not set
+Chip status register: Write Enable Latch (WEL) is not set
+Chip status register: Write In Progress (WIP/BUSY) is not set
+Probing for Macronix MX25L3205D/MX25L3208D, 4096 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Found Macronix flash chip "MX25L3205D/MX25L3208D" (4096 kB, SPI) at physical address 0xffc00000.
+Chip status register is 0x00.
+Chip status register: Status Register Write Disable (SRWD, SRP, ...) is not set
+Chip status register: Bit 6 is not set
+Chip status register: Block Protect 3 (BP3) is not set
+Chip status register: Block Protect 2 (BP2) is not set
+Chip status register: Block Protect 1 (BP1) is not set
+Chip status register: Block Protect 0 (BP0) is not set
+Chip status register: Write Enable Latch (WEL) is not set
+Chip status register: Write In Progress (WIP/BUSY) is not set
+Probing for Macronix MX25L3206E, 4096 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Found Macronix flash chip "MX25L3206E" (4096 kB, SPI) at physical address 0xffc00000.
+Chip status register is 0x00.
+Chip status register: Status Register Write Disable (SRWD, SRP, ...) is not set
+Chip status register: Bit 6 is not set
+Chip status register: Block Protect 3 (BP3) is not set
+Chip status register: Block Protect 2 (BP2) is not set
+Chip status register: Block Protect 1 (BP1) is not set
+Chip status register: Block Protect 0 (BP0) is not set
+Chip status register: Write Enable Latch (WEL) is not set
+Chip status register: Write In Progress (WIP/BUSY) is not set
+Multiple flash chip definitions match the detected chip(s): "MX25L3205(A)", "MX25L3205D/MX25L3208D", "MX25L3206E"
+Please specify which chip definition to use with the -c <chipname> option.
+Restoring MMIO space at 0x7f4d6a79800d

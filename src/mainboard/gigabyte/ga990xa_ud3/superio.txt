@@ -1,0 +1,53 @@
+superiotool r4.0-5189-gea8d460
+Found ITE IT8720F (id=0x8720, rev=0x8) at 0x2e
+superiotool r4.0-5189-gea8d460
+Found ITE IT8720F (id=0x8720, rev=0x8) at 0x2e
+Register dump:
+idx 20 21 22 23 24 2b
+val 87 20 08 00 00 00
+def 87 20 05 00 00 00
+
+LDN 0x00 (Floppy)
+idx 30 60 61 70 74 f0 f1
+val 00 00 00 00 04 00 80
+def 00 03 f0 06 02 00 00
+
+LDN 0x01 (COM1)
+idx 30 60 61 70 f0 f1
+val 01 03 f8 04 00 50
+def 00 03 f8 04 00 50
+
+LDN 0x02 (COM2)
+idx 30 60 61 70 f0 f1
+val 00 00 00 00 00 50
+def 00 02 f8 03 00 50
+
+LDN 0x03 (Parallel port)
+idx 30 60 61 62 63 70 74 f0
+val 00 00 00 00 00 00 04 08
+def 00 03 78 07 78 07 03 03
+
+LDN 0x04 (Environment controller)
+idx 30 60 61 62 63 70 f0 f1  f2 f3 f4 f5 f6
+val 01 02 28 00 00 00 80 00  0a 80 00 3e 1b
+def 00 02 90 02 30 09 00 00  00 00 00 NA NA
+
+LDN 0x05 (Keyboard)
+idx 30 60 61 62 63 70 71 f0
+val 01 00 60 00 64 01 02 48
+def 01 00 60 00 64 01 02 48
+
+LDN 0x06 (Mouse)
+idx 30 70 71 f0
+val 00 00 02 00
+def 00 0c 02 00
+
+LDN 0x07 (GPIO)
+idx 25 26 27 28 29 2a 2c 60  61 62 63 64 65 70 71 72  73 74 b0 b1 b2 b3 b4 b5  b8 b9 ba bb bc bd c0 c1  c2 c3 c4 c8 c9 ca cb cc  e0 e1 e2 e3 e4 e5 e6 e7  e9 f0 f1 f2 f3 f4 f5 f6  f7 f8 f9 fa fb fc fd fe  ff
+val 01 fb 00 43 20 00 03 00  00 02 20 00 00 00 00 00  38 00 00 00 00 00 00 00  80 69 00 40 01 00 01 82  00 03 20 00 83 00 01 20  00 00 00 00 00 00 00 00  00 10 40 00 00 00 00 26  00 00 01 00 00 ff 00 00  00
+def 00 ff 00 40 00 00 03 00  00 00 00 00 00 00 00 NA  38 00 00 00 00 00 00 00  20 00 00 00 00 00 01 00  00 40 00 01 00 00 40 00  00 00 00 00 00 00 00 00  NA 00 00 00 00 00 00 00  00 00 00 00 00 NA 00 00  00
+
+LDN 0x0a (Consumer IR)
+idx 30 60 61 70 f0
+val 00 03 10 0b 06
+def 00 03 10 0b 06

@@ -1,0 +1,124 @@
+#
+# This file is part of the coreboot project.
+#
+# Copyright (C) 2011 - 2012 Advanced Micro Devices, Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; version 2 of the License.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+#
+# RD980/SB950 for GA-990XA-UD3
+chip northbridge/amd/agesa/family15/root_complex
+	device cpu_cluster 0 on
+		chip cpu/amd/agesa/family15
+			device lapic 0x20 on end # SB 24 irqs + 8 cpus ?
+		end
+	end
+	device domain 0 on
+		subsystemid 0x1458 0x5000 inherit #Gigabyte 0x5000 host to pci bridge or 0xe000 for 'motherboard' ?
+		#subsystemid 0x1022 0x1600 inherit # 0x4384 PCI to PCI bridge?
+		chip northbridge/amd/agesa/family15 # CPU side of HT root complex
+			device pci 18.0 on     # Put IO-HUB at link_num 0, Instead of HT Link topology
+				chip northbridge/amd/cimx/rd890 # Southbridge PCI side of HT Root complex
+					device pci 0.0 on  end # HT Root Complex 0x9600 (external gfx0 port B?)
+					device pci 0.1 off end # CLKCONFIG
+					device pci 0.2 off end # IOMMU?
+					# Physical slots x16 x8 x4 x1 x1
+					device pci 2.0 on  end # GPP0 Port0 B 16x (actually 2 x8 ports?) IRQ18 INTA#
+					device pci 3.0 off end # GPP0 Port1 (Not avail?)
+					device pci 4.0 on end  # GPP3a Port0 D  x2/x1 IRQ16 INTA# Etron xHCI
+					device pci 5.0 off end # GPP3a Port1 (Not avail?)
+					device pci 6.0 off end # GPP3a Port2 (Not avail?)
+					device pci 7.0 off end # GPP3a Port3 (Not avail?)
+					device pci 8.0 off end # NB/SB Link P2P bridge, should be hidden at boot time
+					device pci 9.0 on end  # GPP3a Port4 H  x1 IRQ17 INTA# RTL8168
+					device pci a.0 on end  # GPP3a Port5 (external gfx1 port A)  x1 IRQ18 INTA# Etron xHCI
+					device pci b.0 off end # GPP2 Port0 (Not avail?) (Not for sr5650)
+					device pci c.0 off end # GPP2 Port1 (Not avail?) (Not for sr5650/sr5670)
+					device pci d.0 off end # GPP3b Port0 (Not avail?) (Not for sr5650/sr5670) 0x5A1E, Intel 82576
+					
+					register "gpp1_configuration" = "0"   # Configuration 16:0 default //PCIE-GFX in docs?
+					register "gpp2_configuration" = "1"   # Configuration 8:8 //PCIE-GFX2 in docs? only on RD990?
+					register "gpp3a_configuration" = "2"  # 2 Configuration 4:1:1:0:0:0, 11 Configuration 1:1:1:1:1:1 //PCIE-GPPa in docs?
+					register "port_enable" = "0x616" #??? 1,2,4,9,10
+				end #northbridge/amd/cimx/rd890
+				chip southbridge/amd/cimx/sb800 #sb900 it is under NB/SB Link, but on the same pci bus
+					device pci 11.0 on end # SATA
+					device pci 12.0 on end # USB1
+					device pci 12.1 off end # Nothing?
+					device pci 12.2 on end # USB2
+					device pci 13.0 on end # USB1
+					device pci 13.1 off end # Nothing?
+					device pci 13.2 on end # USB2
+					device pci 14.0 on end # SM
+					device pci 14.1 off end # IDE  0x439c no ide on ga990xa-ud3
+					device pci 14.2 on end # HDA  0x4383
+					device pci 14.3 on # LPC  0x439d
+						#chip superio/ite/it8720f
+						chip superio/ite/it8718f
+							device pnp 2e.0 off #  Floppy
+								io 0x60 = 0x3f0
+								irq 0x70 = 6
+								drq 0x74 = 2
+							end
+							device pnp 2e.1 on #  Com1
+								io 0x60 = 0x3f8
+								irq 0x70 = 4
+							end
+							device pnp 2e.2 off #  Com2
+								io 0x60 = 0x2f8
+								irq 0x70 = 3
+							end
+							device pnp 2e.3 off #  Parallel Port
+								io 0x60 = 0x378
+								irq 0x70 = 7
+							end
+							device pnp 2e.4 off end #  EC
+							device pnp 2e.5 on #  Keyboard
+								io 0x60 = 0x60
+								io 0x62 = 0x64
+								irq 0x70 = 1
+							end
+							device pnp 2e.6 on #  Mouse
+								irq 0x70 = 12
+							end
+							device pnp 2e.7 off #  GPIO, must be closed for unresolved reason.
+							end
+							device pnp 2e.8 off #  MIDI
+								io 0x60 = 0x300
+								irq 0x70 = 9
+							end
+							device pnp 2e.9 off #  GAME
+								io 0x60 = 0x220
+							end
+							device pnp 2e.a off end #  CIR
+						end	#superio/ite/it8720f
+					end # LPC
+					device pci 14.4 on end # PCI to PCI
+					device pci 14.5 on end # USB1
+					device pci 16.0 on end # USB1
+					device pci 16.2 on end # USB2
+					register "boot_switch_sata_ide" = "0"   # 0: boot from SATA. 1: IDE
+					register "gpp_configuration" = "0" # 0(GPP_CFGMODE_X4000) -PortA Lanes[3:0]
+				end # southbridge/amd/cimx/sb900
+			end # device pci 18.0
+
+			device pci 18.1 on end
+			device pci 18.2 on end
+			device pci 18.3 on end
+			device pci 18.4 on end
+			device pci 18.5 on end #f15
+
+		end #chip northbridge/amd/agesa/family15 # CPU side of HT root complex
+	end #domain
+end #northbridge/amd/agesa/family15/root_complex
+
