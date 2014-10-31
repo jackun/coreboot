@@ -67,6 +67,7 @@ void cache_as_ram_main(unsigned long bist, unsigned long cpu_init_detectedx)
 	post_code(0x33);
 	report_bist_failure(bist);
 
+	sb800_clk_output_48Mhz();
 	//sb800_lpc_init(); //?
 	ite_enable_serial(SERIAL_DEV, CONFIG_TTYS0_BASE);
 	//it8718f_disable_reboot(GPIO_DEV);
@@ -79,6 +80,7 @@ void cache_as_ram_main(unsigned long bist, unsigned long cpu_init_detectedx)
 	val = cpuid_eax(1);
 	printk(BIOS_DEBUG, "BSP Family_Model: %08x \n", val);
 	printk(BIOS_DEBUG, "cpu_init_detectedx = %08lx \n", cpu_init_detectedx);
+	AGESAWRAPPER(amdinitmmio);
 
 	post_code(0x37);
 	AGESAWRAPPER(amdinitreset);
@@ -111,7 +113,13 @@ void cache_as_ram_main(unsigned long bist, unsigned long cpu_init_detectedx)
 	}
 
 	post_code(0x40);
-	AGESAWRAPPER(amdinitpost);
+	val = AGESAWRAPPER(amdinitpost);
+
+	// From src/mainboard/lippert/frontrunner-af/romstage.c
+	/* Reboots with outb(3,0x92), outb(4,0xcf9) or triple-fault all
+	* hang, looks like DRAM re-init goes wrong, don't know why. */
+	if (val == 7) /* AGESA_FATAL, amdinitenv below is going to hang */
+		outb(0x06, 0x0cf9); /* reset system harder instead */
 
 	post_code(0x41);
 	AGESAWRAPPER(amdinitenv);
@@ -127,6 +135,6 @@ void cache_as_ram_main(unsigned long bist, unsigned long cpu_init_detectedx)
 
 	/* We will not return,  Should never see this message and post code. */
 	print_debug("should not be here -\n");
-	post_code(0x54);
+	post_code(0xFF);
 }
 
