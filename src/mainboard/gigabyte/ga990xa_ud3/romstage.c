@@ -44,6 +44,7 @@
 #include "superio/ite/it8718f/it8718f.h"
 
 #if CONFIG_SOUTHBRIDGE_AMD_CIMX_SB800
+#pragma message("Using AMD_CIMX_SB800")
 #include "SBPLATFORM.h"
 #define sb_poweron_init sb_Poweron_Init
 #else
@@ -70,7 +71,7 @@ void cache_as_ram_main(unsigned long bist, unsigned long cpu_init_detectedx)
 	sb800_clk_output_48Mhz();
 	//sb800_lpc_init(); //?
 	ite_enable_serial(SERIAL_DEV, CONFIG_TTYS0_BASE);
-	//it8718f_disable_reboot(GPIO_DEV);
+	it8718f_disable_reboot(GPIO_DEV);
 	post_code(0x34);
 
 	//uart_init();
@@ -80,7 +81,6 @@ void cache_as_ram_main(unsigned long bist, unsigned long cpu_init_detectedx)
 	val = cpuid_eax(1);
 	printk(BIOS_DEBUG, "BSP Family_Model: %08x \n", val);
 	printk(BIOS_DEBUG, "cpu_init_detectedx = %08lx \n", cpu_init_detectedx);
-	AGESAWRAPPER(amdinitmmio);
 
 	post_code(0x37);
 	AGESAWRAPPER(amdinitreset);
@@ -103,6 +103,12 @@ void cache_as_ram_main(unsigned long bist, unsigned long cpu_init_detectedx)
 	post_code(0x3C);
 
 	nb_Ht_Init();
+
+	// GB bios limits NB to 2200MHz for some reason. AGESA seems to push it to 2600MHz.
+	//rd890_cimx_config(&gConfig, &nb_cfg[0], &ht_cfg[0], &pcie_cfg[0]);
+	//int NbHtSpeed = HT_FREQUENCY_2200M;
+	//LibNbPciWrite (pConfig->NbPciAddress.AddressValue | NB_PCI_REGD1 , AccessWidth8, &NbHtSpeed, pConfig);
+
 	post_code(0x3D);
 	/* Reset for HT, FIDVID, PLL and ucode patch(errata) changes to take affect. */
 	if (!warm_reset_detect(0)) {
@@ -119,7 +125,8 @@ void cache_as_ram_main(unsigned long bist, unsigned long cpu_init_detectedx)
 	/* Reboots with outb(3,0x92), outb(4,0xcf9) or triple-fault all
 	* hang, looks like DRAM re-init goes wrong, don't know why. */
 	if (val == 7) /* AGESA_FATAL, amdinitenv below is going to hang */
-		outb(0x06, 0x0cf9); /* reset system harder instead */
+		//outb(0x06, 0x0cf9); /* reset system harder instead */
+		hard_reset();
 
 	post_code(0x41);
 	AGESAWRAPPER(amdinitenv);

@@ -71,6 +71,8 @@
 #define INSTALL_FAMILY_14_SUPPORT FALSE
 #define INSTALL_FAMILY_15_SUPPORT TRUE
 #define INSTALL_FAMILY_15_MODEL_0x_SUPPORT TRUE
+#define INSTALL_FAMILY_15_MODEL_1x_SUPPORT FALSE
+#define INSTALL_FAMILY_15_MODEL_2x_SUPPORT FALSE
 
 
 /*  Select the cpu socket type.  */
@@ -197,7 +199,7 @@
 #define BLDCFG_IGNORE_SPD_CHECKSUM                FALSE
 #define BLDCFG_USE_BURST_MODE                     FALSE
 #define BLDCFG_MEMORY_ALL_CLOCKS_ON               FALSE
-#define BLDCFG_ENABLE_ECC_FEATURE                 TRUE
+#define BLDCFG_ENABLE_ECC_FEATURE                 FALSE //TRUE
 #define BLDCFG_ECC_REDIRECTION                    FALSE
 #define BLDCFG_SCRUB_DRAM_RATE                    0
 #define BLDCFG_SCRUB_L2_RATE                      0
@@ -213,7 +215,7 @@
 //#define BLDCFG_PROCESSOR_SCOPE_NAME1              '0'
 
 //enable HW C1E
-#define BLDCFG_PLATFORM_C1E_MODE     C1eModeMsgBased //C1eModeHardware
+//#define BLDCFG_PLATFORM_C1E_MODE     C1eModeDisabled //C1eModeMsgBased /*for multi-socket?*/ //C1eModeHardware
 //#define BLDCFG_PLATFORM_C1E_OPDATA              0x415
 #define BLDCFG_PLATFORM_CSTATE_MODE     CStateModeC6 //0 //CStateModeC6
 //#define BLDCFG_PLATFORM_CSTATE_OPDATA   0x840         //Specifies a free block of 8 consecutive I/O ports to be used to place the CPU into C6
@@ -228,7 +230,7 @@
 //#define BLDCFG_VRM_NB_INRUSH_CURRENT_LIMIT        0  // Not currently used on Llano/Ontario
 
 #define BLDCFG_UMA_ABOVE4G_SUPPORT              TRUE
-#define BLDCFG_STEREO_3D_PINOUT                 TRUE
+//#define BLDCFG_STEREO_3D_PINOUT                 TRUE
 
 /*  Process the options...
  * This file include MUST occur AFTER the user option selection settings
@@ -339,7 +341,7 @@ CONST PSO_ENTRY ROMDATA DefaultPlatformMemoryConfiguration[] = {
   //      Byte6Seed, Byte7Seed, ByteEccSeed)
   //      Specifies the write leveling seed for a channel of a socket.
   //
-  NUMBER_OF_DIMMS_SUPPORTED (ANY_SOCKET, ANY_CHANNEL, 1),
+  NUMBER_OF_DIMMS_SUPPORTED (ANY_SOCKET, ANY_CHANNEL, 2),
   NUMBER_OF_CHANNELS_SUPPORTED (ANY_SOCKET, 2),
   PSO_END
 };

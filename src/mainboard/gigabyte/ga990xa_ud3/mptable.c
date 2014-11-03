@@ -17,7 +17,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-//Based on supermicro h8qgi so probably very correct
+//Based on supermicro h8qgi, amd dinar so probably not very correct
 
 #include <console/console.h>
 #include <arch/smp/mpspec.h>
@@ -28,6 +28,34 @@
 #include <arch/cpu.h>
 #include <cpu/x86/lapic.h>
 //#include <cpu/amd/amdfam15.h>
+
+
+	/* GA990 vendor bios PCI IRQs
+	 * INTA = 10h, INTB = 11h etc?
+	* 00:02.0 PCI-2-PCI (PCIE) INTA IRQ18
+	* 00:04.0 PCI-2-PCI (PCIE) INTA IRQ16
+	* 00:09.0 PCI-2-PCI (PCIE) INTA IRQ17
+	* 00:0A.0 PCI-2-PCI (PCIE) INTA IRQ18
+	* 00:11.0 RAID INTA IRQ19 / AHCI xxx xxx
+	* 00:12.0 OHCI INTA IRQ18
+	* 00:12.2 EHCI INTB IRQ17
+	* 00:13.0 OHCI INTA IRQ18
+	* 00:13.2 EHCI INTB IRQ17
+	* 00:14.0 SMBUS 
+	* 00:14.2 HDA INTA IRQ16
+	* 00:14.3 ISA Bridge
+	* 00:14.4 PCI-2-PCI
+	* 00:14.5 OHCI INTC IRQ18
+	* 00:15.0 PCI-2-PCI (PCIE) INTA IRQ17
+	* 00:16.0 OHCI INTA IRQ18
+	* 00:16.2 EHCI INTB IRQ17
+	* 00:18.0 HOST Bridge
+	* 00:18.1 HOST Bridge
+	* 00:18.2 HOST Bridge
+	* 00:18.3 HOST Bridge
+	* 00:18.4 HOST Bridge
+	* 00:18.5 HOST Bridge
+	*/
 
 static void *smp_write_config_table(void *v)
 {
@@ -96,8 +124,10 @@ static void *smp_write_config_table(void *v)
 	/* PCI interrupts are level triggered, and are
 	 * associated with a specific bus/device/function tuple.
 	 */
-#define PCI_INT(bus, dev, int_sign, pin) \
-	smp_write_intsrc(mc, mp_INT, MP_IRQ_TRIGGER_LEVEL|MP_IRQ_POLARITY_LOW, (bus), (((dev)<<2)|(int_sign)), apicid_sb800, (pin))
+#define PCI_INT(bus, dev, fn, pin) \
+	smp_write_intsrc(mc, mp_INT, MP_IRQ_TRIGGER_LEVEL|MP_IRQ_POLARITY_LOW, (bus), (((dev)<<2)|(fn)), apicid_sb800, (pin))
+
+	//INTA 0x10  INTB 0x11 INTC 0x12 INTD 0x13 INTE 0x14 INTF 0x15 INTG 0x16
 
 	/* SMBUS */
 	//PCI_INT(0x0, 0x14, 0x0, 0x10); //not generate interrupt, 3Ch hardcoded to 0
@@ -110,19 +140,31 @@ static void *smp_write_config_table(void *v)
 	/* EHCI hard-wired to 02h, corresponding to using INTB# */
 	/* USB1 */
 	PCI_INT(0x0, 0x12, 0x0, 0x10); /* OHCI0 Port 0~2 */
-	PCI_INT(0x0, 0x12, 0x1, 0x10); /* OHCI1 Port 3~5 */
+	//PCI_INT(0x0, 0x12, 0x1, 0x10); /* OHCI1 Port 3~5 */ // N/A?
 	PCI_INT(0x0, 0x12, 0x2, 0x11); /* EHCI Port 0~5 */
 
 	/* USB2 */
 	PCI_INT(0x0, 0x13, 0x0, 0x10); /* OHCI0 Port 6~8 */
-	PCI_INT(0x0, 0x13, 0x1, 0x10); /* OHCI1 Port 9~11 */
+	//PCI_INT(0x0, 0x13, 0x1, 0x10); /* OHCI1 Port 9~11 */ // N/A?
 	PCI_INT(0x0, 0x13, 0x2, 0x11); /* EHCI Port 6~11 */
 
 	/* USB3 EHCI hard-wired to 03h, corresponding to using INTC# */
 	PCI_INT(0x0, 0x14, 0x5, 0x12); /* OHCI0 Port 12~13 */
 
 	/* SATA */
-	PCI_INT(0x0, 0x11, 0x0, 0x16); //6, INTG
+	//PCI_INT(0x0, 0x11, 0x0, 0x16); //6, INTG
+	/* RAID */
+	PCI_INT(0x0, 0x11, 0x0, 0x10); //INTA
+
+	/* Eltron XCHI */
+	PCI_INT(0x2, 0x0, 0x0, 0x10); //INTA
+	PCI_INT(0x4, 0x0, 0x0, 0x10); //INTA
+
+	/* Realtek Eth 0x8168 */
+	PCI_INT(0x3, 0x0, 0x0, 0x10); //INTA
+
+	/* VIA IEEE 1394 0x3044 */
+	PCI_INT(0x5, 0x0E, 0x0, 0x10); //INTA IRQ22
 
 	/* PCI slots */
 	dev = dev_find_slot(0, PCI_DEVFN(0x14, 4));

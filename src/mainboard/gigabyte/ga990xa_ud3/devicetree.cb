@@ -20,7 +20,8 @@
 chip northbridge/amd/agesa/family15/root_complex
 	device cpu_cluster 0 on
 		chip cpu/amd/agesa/family15
-			device lapic 0x20 on end # SB 24 irqs + 8 cpus ?
+			device lapic 0x20 on end #f15, SB 24 irqs + 8 cpus ?
+			#device lapic 0x10 on end #f10
 		end
 	end
 	device domain 0 on
@@ -33,23 +34,23 @@ chip northbridge/amd/agesa/family15/root_complex
 					device pci 0.1 off end # CLKCONFIG
 					device pci 0.2 off end # IOMMU?
 					# Physical slots x16 x8 x4 x1 x1
-					device pci 2.0 on  end # GPP0 Port0 B 16x (actually 2 x8 ports?) IRQ18 INTA#
-					device pci 3.0 off end # GPP0 Port1 (Not avail?)
+					device pci 2.0 on  end # GFX/GPP0 Port0 B 16x (actually 2 x8 ports?) IRQ18 INTA#
+					device pci 3.0 off end # GFX/GPP0 Port1 (Not avail?)
 					device pci 4.0 on end  # GPP3a Port0 D  x2/x1 IRQ16 INTA# Etron xHCI
 					device pci 5.0 off end # GPP3a Port1 (Not avail?)
 					device pci 6.0 off end # GPP3a Port2 (Not avail?)
 					device pci 7.0 off end # GPP3a Port3 (Not avail?)
-					device pci 8.0 off end # NB/SB Link P2P bridge, should be hidden at boot time
+					device pci 8.0 off end # transparent NB/SB Link P2P bridge, should be hidden at boot time
 					device pci 9.0 on end  # GPP3a Port4 H  x1 IRQ17 INTA# RTL8168
 					device pci a.0 on end  # GPP3a Port5 (external gfx1 port A)  x1 IRQ18 INTA# Etron xHCI
-					device pci b.0 off end # GPP2 Port0 (Not avail?) (Not for sr5650)
-					device pci c.0 off end # GPP2 Port1 (Not avail?) (Not for sr5650/sr5670)
+					device pci b.0 off end # GFX2/GPP2 Port0 (Not avail?) (Not for sr5650)
+					device pci c.0 off end # GFX2/GPP2 Port1 (Not avail?) (Not for sr5650/sr5670)
 					device pci d.0 off end # GPP3b Port0 (Not avail?) (Not for sr5650/sr5670) 0x5A1E, Intel 82576
 					
 					register "gpp1_configuration" = "0"   # Configuration 16:0 default //PCIE-GFX in docs?
 					register "gpp2_configuration" = "1"   # Configuration 8:8 //PCIE-GFX2 in docs? only on RD990?
 					register "gpp3a_configuration" = "2"  # 2 Configuration 4:1:1:0:0:0, 11 Configuration 1:1:1:1:1:1 //PCIE-GPPa in docs?
-					register "port_enable" = "0x616" #??? 1,2,4,9,10
+					register "port_enable" = "0x616" #FIXME ??? 1,2,4,9,10
 				end #northbridge/amd/cimx/rd890
 				chip southbridge/amd/cimx/sb800 #sb900 it is under NB/SB Link, but on the same pci bus
 					device pci 11.0 on end # SATA
@@ -59,13 +60,27 @@ chip northbridge/amd/agesa/family15/root_complex
 					device pci 13.0 on end # USB1
 					device pci 13.1 off end # Nothing?
 					device pci 13.2 on end # USB2
-					device pci 14.0 on end # SM
+					device pci 14.0 on
+						# FIXME 0xA0 >> 1 => 50 ?
+						chip drivers/generic/generic #dimm 0
+							device i2c 50 on end # 0xA0, 7-bit SPD address
+						end
+						chip drivers/generic/generic #dimm 1
+							device i2c 51 on end # 0xA2, 7-bit SPD address
+						end
+						chip drivers/generic/generic #dimm 2
+							device i2c 52 on end # 0xA4, 7-bit SPD address
+						end
+						chip drivers/generic/generic #dimm 3
+							device i2c 53 on end # 0xA6, 7-bit SPD address
+						end
+					end # SM
 					device pci 14.1 off end # IDE  0x439c no ide on ga990xa-ud3
 					device pci 14.2 on end # HDA  0x4383
 					device pci 14.3 on # LPC  0x439d
-						#chip superio/ite/it8720f
+						#chip superio/ite/it8720f #basically it8718f
 						chip superio/ite/it8718f
-							device pnp 2e.0 off #  Floppy
+							device pnp 2e.0 off #  Floppy, N/A
 								io 0x60 = 0x3f0
 								irq 0x70 = 6
 								drq 0x74 = 2
@@ -74,11 +89,11 @@ chip northbridge/amd/agesa/family15/root_complex
 								io 0x60 = 0x3f8
 								irq 0x70 = 4
 							end
-							device pnp 2e.2 off #  Com2
-								io 0x60 = 0x2f8
+							device pnp 2e.2 off #  Com2, N/A
+								io 0x60 = 0x2f8 #Because off, it is actually 0x0
 								irq 0x70 = 3
 							end
-							device pnp 2e.3 off #  Parallel Port
+							device pnp 2e.3 off #  Parallel Port, N/A
 								io 0x60 = 0x378
 								irq 0x70 = 7
 							end
@@ -88,16 +103,18 @@ chip northbridge/amd/agesa/family15/root_complex
 								io 0x62 = 0x64
 								irq 0x70 = 1
 							end
-							device pnp 2e.6 on #  Mouse
+							device pnp 2e.6 on #  Mouse, N/A, shared with KB, only diff is IRQ?
+								#io 0x60 = 0x60
+								#io 0x62 = 0x64
 								irq 0x70 = 12
 							end
 							device pnp 2e.7 off #  GPIO, must be closed for unresolved reason.
 							end
-							device pnp 2e.8 off #  MIDI
+							device pnp 2e.8 off #  MIDI, N/A
 								io 0x60 = 0x300
 								irq 0x70 = 9
 							end
-							device pnp 2e.9 off #  GAME
+							device pnp 2e.9 off #  GAME, N/A
 								io 0x60 = 0x220
 							end
 							device pnp 2e.a off end #  CIR
@@ -117,6 +134,13 @@ chip northbridge/amd/agesa/family15/root_complex
 			device pci 18.3 on end
 			device pci 18.4 on end
 			device pci 18.5 on end #f15
+			
+			# Seems to be DIMM Slot1 0xA0, Slot2 0xA2, Slot3 0xA4, Slot4 0xA6
+			# Dual channeling with 2/4 DIMMs: 0xA0 && 0xA2 and/or 0xA4 && 0xA6
+			register "spdAddrLookup" = "
+			{
+				{ {0xA0, 0xA4}, {0xA2, 0xA6}, }, // socket 0 - Channel 0 & 1 - 8-bit SPD addresses
+			}"
 
 		end #chip northbridge/amd/agesa/family15 # CPU side of HT root complex
 	end #domain
