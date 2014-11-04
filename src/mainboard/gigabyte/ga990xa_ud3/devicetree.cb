@@ -110,13 +110,6 @@ chip northbridge/amd/agesa/family15/root_complex
 							end
 							device pnp 2e.7 off #  GPIO, must be closed for unresolved reason.
 							end
-							device pnp 2e.8 off #  MIDI, N/A
-								io 0x60 = 0x300
-								irq 0x70 = 9
-							end
-							device pnp 2e.9 off #  GAME, N/A
-								io 0x60 = 0x220
-							end
 							device pnp 2e.a off end #  CIR
 						end	#superio/ite/it8720f
 					end # LPC
