@@ -51,6 +51,7 @@ chip northbridge/amd/agesa/family15/root_complex
 					register "gpp2_configuration" = "1"   # Configuration 8:8 //PCIE-GFX2 in docs? only on RD990?
 					register "gpp3a_configuration" = "2"  # 2 Configuration 4:1:1:0:0:0, 11 Configuration 1:1:1:1:1:1 //PCIE-GPPa in docs?
 					register "port_enable" = "0x616" #FIXME ??? 1,2,4,9,10
+					#register "port_enable" = "0x61f" # h8scm
 				end #northbridge/amd/cimx/rd890
 				chip southbridge/amd/cimx/sb800 #sb900 it is under NB/SB Link, but on the same pci bus
 					device pci 11.0 on end # SATA
@@ -127,9 +128,9 @@ chip northbridge/amd/agesa/family15/root_complex
 			device pci 18.3 on end
 			device pci 18.4 on end
 			device pci 18.5 on end #f15
-			
-			# Seems to be DIMM Slot1 0xA0, Slot2 0xA2, Slot3 0xA4, Slot4 0xA6
+
 			# Dual channeling with 2/4 DIMMs: 0xA0 && 0xA2 and/or 0xA4 && 0xA6
+			# silkscreen looks to be backwards: DIMM_4, DIMM_2, DIMM_3, DIMM_1
 			register "spdAddrLookup" = "
 			{
 				{ {0xA0, 0xA4}, {0xA2, 0xA6}, }, // socket 0 - Channel 0 & 1 - 8-bit SPD addresses
