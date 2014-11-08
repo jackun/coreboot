@@ -20,8 +20,9 @@
 chip northbridge/amd/agesa/family15/root_complex
 	device cpu_cluster 0 on
 		chip cpu/amd/agesa/family15
-			device lapic 0x20 on end #f15, SB 24 irqs + 8 cpus ?
-			#device lapic 0x10 on end #f10
+			# CPU 0x20 did not initialize!
+			#device lapic 0x20 on end #f15, SB 24 irqs + 8 cpus ?
+			device lapic 0x10 on end #f10, seems to work better
 		end
 	end
 	device domain 0 on
