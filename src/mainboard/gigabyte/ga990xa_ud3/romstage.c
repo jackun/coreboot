@@ -42,14 +42,8 @@
 #include <superio/ite/common/ite.h>
 //#include "superio/ite/it8720f/it8720f.h"
 #include "superio/ite/it8718f/it8718f.h"
-
-#if CONFIG_SOUTHBRIDGE_AMD_CIMX_SB800
-#pragma message("Using AMD_CIMX_SB800")
+// SB800
 #include "SBPLATFORM.h"
-#define sb_poweron_init sb_Poweron_Init
-#else
-#include "SbPlatform.h"
-#endif
 #include "platform_cfg.h"
 
 #define SERIAL_DEV PNP_DEV(0x2e, IT8718F_SP1)
@@ -95,7 +89,7 @@ void cache_as_ram_main(unsigned long bist, unsigned long cpu_init_detectedx)
 		post_code(0x39);
 		nb_Poweron_Init();
 		post_code(0x3A);
-		sb_poweron_init();
+		sb_Poweron_Init();
 	}
 	post_code(0x3B);
 	AGESAWRAPPER(amdinitearly);

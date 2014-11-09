@@ -108,7 +108,7 @@ static void *smp_write_config_table(void *v)
 		/* Set RS5650 IOAPIC ID */
 		dev = dev_find_slot(0, PCI_DEVFN(0, 0));
 		if (dev) {
-			pci_write_config32(dev, 0xF8, 0x1);
+			pci_write_config32(dev, 0xF8, 0x1); //IOAPICIND index 1/IOAPIC_VERSION_REGISTER?
 			dword = pci_read_config32(dev, 0xFC) & 0xfffffff0;
 			smp_write_ioapic(mc, apicid_rd890, 0x20, dword);
 		}
