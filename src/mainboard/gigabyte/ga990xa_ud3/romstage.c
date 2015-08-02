@@ -30,15 +30,13 @@
 #include <arch/cpu.h>
 #include <console/console.h>
 #include <arch/stages.h>
-#include "cpu/x86/bist.h"
-#include "cpu/x86/lapic.h"
-#include "cpu/amd/car.h"
-#include "agesawrapper.h"
-#include <northbridge/amd/agesa/agesawrapper_call.h>
-#include "northbridge/amd/agesa/family10/reset_test.h"
+#include <cpu/x86/bist.h>
+#include <cpu/x86/lapic.h>
+#include <cpu/amd/car.h>
+#include <northbridge/amd/agesa/agesawrapper.h>
+#include <northbridge/amd/agesa/family10/reset_test.h>
 #include <nb_cimx.h>
 #include <sb_cimx.h>
-#include <cpu/amd/mtrr.h>
 #include <superio/ite/common/ite.h>
 //#include "superio/ite/it8720f/it8720f.h"
 #include "superio/ite/it8718f/it8718f.h"
@@ -55,7 +53,7 @@ void cache_as_ram_main(unsigned long bist, unsigned long cpu_init_detectedx)
 
 	post_code(0x30);
 	//agesawrapper_amdinitmmio();
-	AGESAWRAPPER_PRE_CONSOLE(amdinitmmio);
+	amd_initmmio();
 	post_code(0x31);
 
 	/* Halt if there was a built in self test failure */
@@ -77,7 +75,7 @@ void cache_as_ram_main(unsigned long bist, unsigned long cpu_init_detectedx)
 	printk(BIOS_DEBUG, "cpu_init_detectedx = %08lx \n", cpu_init_detectedx);
 
 	post_code(0x37);
-	AGESAWRAPPER(amdinitreset);
+	agesawrapper_amdinitreset();
 
 	if (!cpu_init_detectedx && boot_cpu()) {
 		post_code(0x38);
@@ -92,7 +90,7 @@ void cache_as_ram_main(unsigned long bist, unsigned long cpu_init_detectedx)
 		sb_Poweron_Init();
 	}
 	post_code(0x3B);
-	AGESAWRAPPER(amdinitearly);
+	agesawrapper_amdinitearly();
 
 	post_code(0x3C);
 
@@ -106,14 +104,14 @@ void cache_as_ram_main(unsigned long bist, unsigned long cpu_init_detectedx)
 	post_code(0x3D);
 	/* Reset for HT, FIDVID, PLL and ucode patch(errata) changes to take affect. */
 	if (!warm_reset_detect(0)) {
-		print_info("...WARM RESET...\n\n\n");
+		printk(BIOS_INFO, "...WARM RESET...\n\n\n");
 		distinguish_cpu_resets(0);
 		soft_reset();
 		die("After soft_reset_x - shouldn't see this message!!!\n");
 	}
 
 	post_code(0x40);
-	val = AGESAWRAPPER(amdinitpost);
+	val = agesawrapper_amdinitpost();
 
 	// From src/mainboard/lippert/frontrunner-af/romstage.c
 	/* Reboots with outb(3,0x92), outb(4,0xcf9) or triple-fault all
@@ -123,19 +121,19 @@ void cache_as_ram_main(unsigned long bist, unsigned long cpu_init_detectedx)
 		hard_reset();
 
 	post_code(0x41);
-	AGESAWRAPPER(amdinitenv);
+	agesawrapper_amdinitenv();
 	post_code(0x42);
 
 	post_code(0x50);
-	print_debug("Disabling cache as ram ");
+	printk(BIOS_DEBUG, "Disabling cache as ram ");
 	disable_cache_as_ram();
-	print_debug("done\n");
+	printk(BIOS_DEBUG, "done\n");
 
 	post_code(0x51);
 	copy_and_run();
 
 	/* We will not return,  Should never see this message and post code. */
-	print_debug("should not be here -\n");
+	printk(BIOS_DEBUG, "should not be here -\n");
 	post_code(0xFF);
 }
 

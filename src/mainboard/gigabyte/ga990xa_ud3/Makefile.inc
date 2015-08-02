@@ -27,14 +27,12 @@ endif
 romstage-y += rd890_cfg.c
 #romstage-y += sb900_cfg.c
 romstage-y += buildOpts.c
-romstage-y += agesawrapper.c
 romstage-y += BiosCallOuts.c
 romstage-y += platform_oem.c
 
 ramstage-y += rd890_cfg.c
 #ramstage-y += sb900_cfg.c
 ramstage-y += buildOpts.c
-ramstage-y += agesawrapper.c
 ramstage-y += BiosCallOuts.c
 ramstage-y += platform_oem.c
 
