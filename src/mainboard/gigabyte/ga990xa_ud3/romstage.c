@@ -96,11 +96,6 @@ void cache_as_ram_main(unsigned long bist, unsigned long cpu_init_detectedx)
 
 	nb_Ht_Init();
 
-	// GB bios limits NB to 2200MHz for some reason. AGESA seems to push it to 2600MHz.
-	//rd890_cimx_config(&gConfig, &nb_cfg[0], &ht_cfg[0], &pcie_cfg[0]);
-	//int NbHtSpeed = HT_FREQUENCY_2200M;
-	//LibNbPciWrite (pConfig->NbPciAddress.AddressValue | NB_PCI_REGD1 , AccessWidth8, &NbHtSpeed, pConfig);
-
 	post_code(0x3D);
 	/* Reset for HT, FIDVID, PLL and ucode patch(errata) changes to take affect. */
 	if (!warm_reset_detect(0)) {
