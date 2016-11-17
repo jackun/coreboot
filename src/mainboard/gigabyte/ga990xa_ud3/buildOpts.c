@@ -33,7 +33,6 @@
  * @e \$Revision: 6049 $   @e \$Date: 2008-05-14 01:58:02 -0500 (Wed, 14 May 2008) $
  */
 #include  "AGESA.h"
-#include  "CommonReturns.h"
 #include "Filecode.h"
 #define FILECODE PLATFORM_SPECIFIC_OPTIONS_FILECODE
 
@@ -119,21 +118,6 @@
 
 //For revision C single-link processors
 //#define BLDCFG_SUPPORT_ACPI_PSTATES_PSD_INDPX  TRUE
-
-/*
- * Agesa entry points used in this implementation.
- */
-#define AGESA_ENTRY_INIT_RESET                    TRUE
-#define AGESA_ENTRY_INIT_RECOVERY                 FALSE
-#define AGESA_ENTRY_INIT_EARLY                    TRUE
-#define AGESA_ENTRY_INIT_POST                     TRUE
-#define AGESA_ENTRY_INIT_ENV                      TRUE
-#define AGESA_ENTRY_INIT_MID                      TRUE
-#define AGESA_ENTRY_INIT_LATE                     TRUE
-#define AGESA_ENTRY_INIT_S3SAVE                   TRUE
-#define AGESA_ENTRY_INIT_RESUME                   TRUE
-#define AGESA_ENTRY_INIT_LATE_RESTORE             FALSE
-#define AGESA_ENTRY_INIT_GENERAL_SERVICES         TRUE
 
 /*****************************************************************************
  *   Define the RELEASE VERSION string
@@ -272,147 +256,3 @@ CONST AP_MTRR_SETTINGS ROMDATA LlanoApMtrrSettingsList[] =
 #include "cpuLateInit.h"
 #include "GnbInterfaceStub.h"
 #include "PlatformInstall.h"
-
-/*----------------------------------------------------------------------------------------
- *                        CUSTOMER OVERIDES MEMORY TABLE
- *----------------------------------------------------------------------------------------
- */
-
-/*
- *  Platform Specific Overriding Table allows IBV/OEM to pass in platform information to AGESA
- *  (e.g. MemClk routing, the number of DIMM slots per channel,...). If PlatformSpecificTable
- *  is populated, AGESA will base its settings on the data from the table. Otherwise, it will
- *  use its default conservative settings.
- */
-CONST PSO_ENTRY ROMDATA DefaultPlatformMemoryConfiguration[] = {
-  //
-  // The following macros are supported (use comma to separate macros):
-  //
-  // MEMCLK_DIS_MAP(SocketID, ChannelID, MemClkDisBit0CSMap,..., MemClkDisBit7CSMap)
-  //      The MemClk pins are identified based on BKDG definition of Fn2x88[MemClkDis] bitmap.
-  //      AGESA will base on this value to disable unused MemClk to save power.
-  //      Example:
-  //      BKDG definition of Fn2x88[MemClkDis] bitmap for AM3 package is like below:
-  //           Bit AM3/S1g3 pin name
-  //           0   M[B,A]_CLK_H/L[0]
-  //           1   M[B,A]_CLK_H/L[1]
-  //           2   M[B,A]_CLK_H/L[2]
-  //           3   M[B,A]_CLK_H/L[3]
-  //           4   M[B,A]_CLK_H/L[4]
-  //           5   M[B,A]_CLK_H/L[5]
-  //           6   M[B,A]_CLK_H/L[6]
-  //           7   M[B,A]_CLK_H/L[7]
-  //      And platform has the following routing:
-  //           CS0   M[B,A]_CLK_H/L[4]
-  //           CS1   M[B,A]_CLK_H/L[2]
-  //           CS2   M[B,A]_CLK_H/L[3]
-  //           CS3   M[B,A]_CLK_H/L[5]
-  //      Then platform can specify the following macro:
-  //      MEMCLK_DIS_MAP(ANY_SOCKET, ANY_CHANNEL, 0x00, 0x00, 0x02, 0x04, 0x01, 0x08, 0x00, 0x00)
-  //
-  // CKE_TRI_MAP(SocketID, ChannelID, CKETriBit0CSMap, CKETriBit1CSMap)
-  //      The CKE pins are identified based on BKDG definition of Fn2x9C_0C[CKETri] bitmap.
-  //      AGESA will base on this value to tristate unused CKE to save power.
-  //
-  // ODT_TRI_MAP(SocketID, ChannelID, ODTTriBit0CSMap,..., ODTTriBit3CSMap)
-  //      The ODT pins are identified based on BKDG definition of Fn2x9C_0C[ODTTri] bitmap.
-  //      AGESA will base on this value to tristate unused ODT pins to save power.
-  //
-  // CS_TRI_MAP(SocketID, ChannelID, CSTriBit0CSMap,..., CSTriBit7CSMap)
-  //      The Chip select pins are identified based on BKDG definition of Fn2x9C_0C[ChipSelTri] bitmap.
-  //      AGESA will base on this value to tristate unused Chip select to save power.
-  //
-  // NUMBER_OF_DIMMS_SUPPORTED(SocketID, ChannelID, NumberOfDimmSlotsPerChannel)
-  //      Specifies the number of DIMM slots per channel.
-  //
-  // NUMBER_OF_CHIP_SELECTS_SUPPORTED(SocketID, ChannelID, NumberOfChipSelectsPerChannel)
-  //      Specifies the number of Chip selects per channel.
-  //
-  // NUMBER_OF_CHANNELS_SUPPORTED(SocketID, NumberOfChannelsPerSocket)
-  //      Specifies the number of channels per socket.
-  //
-  // OVERRIDE_DDR_BUS_SPEED(SocketID, ChannelID, USER_MEMORY_TIMING_MODE, MEMORY_BUS_SPEED)
-  //      Specifies DDR bus speed of channel ChannelID on socket SocketID.
-  //
-  // DRAM_TECHNOLOGY(SocketID, TECHNOLOGY_TYPE)
-  //      Specifies the DRAM technology type of socket SocketID (DDR2, DDR3,...)
-  //
-  // WRITE_LEVELING_SEED(SocketID, ChannelID, Byte0Seed, Byte1Seed, Byte2Seed, Byte3Seed, Byte4Seed, Byte5Seed,
-  //      Byte6Seed, Byte7Seed, ByteEccSeed)
-  //      Specifies the write leveling seed for a channel of a socket.
-  //
-  NUMBER_OF_DIMMS_SUPPORTED (ANY_SOCKET, ANY_CHANNEL, 2),
-  NUMBER_OF_CHANNELS_SUPPORTED (ANY_SOCKET, 2),
-  PSO_END
-};
-
-/*
- * These tables are optional and may be used to adjust memory timing settings
- */
-#include "mm.h"
-#include "mn.h"
-
-//DA Customer table
-UINT8 AGESA_MEM_TABLE_LN[][sizeof (MEM_TABLE_ALIAS)] =
-{
- // Hardcoded Memory Training Values
-
- // The following macro should be used to override training values for your platform
- //
- // DQSACCESS(MTAfterDqsRwPosTrn, MTNodes, MTDcts, MTDIMMs, BFRdDqsDly, MTOverride, 0x00, 0x04, 0x08, 0x0c, 0x10, 0x14, 0x18, 0x1c, 0x20),
- //
- //   NOTE:
- //   The following training hardcode values are example values that were taken from a tilapia motherboard
- //   with a particular DIMM configuration.  To hardcode your own values, uncomment the appropriate line in
- //   the table and replace the byte lane values with your own.
- //
- //                                                                               ------------------ BYTE LANES ----------------------
- //                                                                                BL0   BL1   BL2   BL3   BL4   BL5   BL6   Bl7   ECC
- // Write Data Timing
-  // DQSACCESS(MTAfterDqsRwPosTrn, MTNode0, MTDct0, MTDIMM0, BFWrDatDly, MTOverride, 0x15, 0x14, 0x21, 0x11, 0x40, 0x2A, 0x34, 0x2D, 0x15),// DCT0, DIMM0
- // DQSACCESS(MTAfterDqsRwPosTrn, MTNode0, MTDct0, MTDIMM1, BFWrDatDly, MTOverride, 0x1D, 0x00, 0x06, 0x0B, 0x17, 0x1A, 0x1E, 0x1F, 0x10),// DCT0, DIMM1
-  // DQSACCESS(MTAfterDqsRwPosTrn, MTNode0, MTDct1, MTDIMM0, BFWrDatDly, MTOverride, 0x17, 0x16, 0x21, 0x11, 0x3F, 0x2A, 0x35, 0x2E, 0x17),// DCT1, DIMM0
- // DQSACCESS(MTAfterDqsRwPosTrn, MTNode0, MTDct1, MTDIMM1, BFWrDatDly, MTOverride, 0x18, 0x1D, 0x1C, 0x0B, 0x17, 0x1A, 0x1D, 0x1C, 0x10),// DCT1, DIMM1
-
- // DQS Receiver Enable
-  // DQSACCESS(MTAfterSwRxEnTrn, MTNode0, MTDct0, MTDIMM0, BFRcvEnDly, MTOverride, 0x77, 0x70, 0x77, 0x60, 0x95, 0x83, 0x8F, 0x90, 0x77),// DCT0, DIMM0
- // DQSACCESS(MTAfterSwRxEnTrn, MTNode0, MTDct0, MTDIMM1, BFRcvEnDly, MTOverride, 0x7C, 0x7D, 0x7E, 0x81, 0x88, 0x8F, 0x96, 0x9F, 0x84),// DCT0, DIMM1
-  // DQSACCESS(MTAfterSwRxEnTrn, MTNode0, MTDct1, MTDIMM0, BFRcvEnDly, MTOverride, 0x7D, 0x75, 0x7F, 0x6C, 0x9A, 0x8D, 0x94, 0x98, 0x7D),// DCT1, DIMM0
- // DQSACCESS(MTAfterSwRxEnTrn, MTNode0, MTDct1, MTDIMM1, BFRcvEnDly, MTOverride, 0x1C, 0x1D, 0x1E, 0x01, 0x08, 0x0F, 0x16, 0x1F, 0x04),// DCT1, DIMM1
-
- // Write DQS Delays
-  // DQSACCESS(MTAfterHwWLTrnP2, MTNode0, MTDct0, MTDIMM0, BFWrDqsDly, MTOverride, 0x03, 0x04, 0x0F, 0x00, 0x2D, 0x1B, 0x23, 0x1C, 0x00),// DCT0, DIMM0
- // DQSACCESS(MTAfterHwWLTrnP2, MTNode0, MTDct0, MTDIMM1, BFWrDqsDly, MTOverride, 0x06, 0x0D, 0x12, 0x1A, 0x25, 0x28, 0x2C, 0x2C, 0x44),// DCT0, DIMM1
-  // DQSACCESS(MTAfterHwWLTrnP2, MTNode0, MTDct1, MTDIMM0, BFWrDqsDly, MTOverride, 0x05, 0x05, 0x0F, 0x00, 0x2E, 0x19, 0x24, 0x1C, 0x00),// DCT1, DIMM0
- // DQSACCESS(MTAfterHwWLTrnP2, MTNode0, MTDct1, MTDIMM1, BFWrDqsDly, MTOverride, 0x07, 0x0C, 0x14, 0x19, 0x25, 0x28, 0x2B, 0x2B, 0x1A),// DCT1, DIMM1
-
- // Read DQS Delays
-  // DQSACCESS(MTAfterDqsRwPosTrn, MTNode0, MTDct0, MTDIMM0, BFRdDqsDly, MTOverride, 0x0C, 0x0A, 0x0A, 0x0E, 0x0A, 0x0C, 0x0C, 0x0A, 0x0C),// DCT0, DIMM0
- // DQSACCESS(MTAfterDqsRwPosTrn, MTNode0, MTDct0, MTDIMM1, BFRdDqsDly, MTOverride, 0x10, 0x10, 0x0E, 0x10, 0x10, 0x10, 0x10, 0x1E, 0x10),// DCT0, DIMM1
-  // DQSACCESS(MTAfterDqsRwPosTrn, MTNode0, MTDct1, MTDIMM0, BFRdDqsDly, MTOverride, 0x0A, 0x0C, 0x0E, 0x0A, 0x0C, 0x0A, 0x0C, 0x0E, 0x0A),// DCT1, DIMM0
- // DQSACCESS(MTAfterDqsRwPosTrn, MTNode0, MTDct1, MTDIMM1, BFRdDqsDly, MTOverride, 0x10, 0x10, 0x0E, 0x10, 0x10, 0x10, 0x10, 0x1E, 0x10),// DCT1, DIMM1
- // --------------------------------------------------------------------------------------------------------------------------------------------------
-
- // MaxRdLatency
-  // NBACCESS (MTAfterMaxRdLatTrn, MTNode0, MTDct0, BFMaxLatency, MTOverride, 0x0C),
-  // NBACCESS (MTAfterMaxRdLatTrn, MTNode0, MTDct1, BFMaxLatency, MTOverride, 0x0C),
- // TABLE END
-  NBACCESS (MTEnd, 0,  0, 0, 0, 0),      // End of Table
-};
-UINT8 SizeOfTableLN = sizeof (AGESA_MEM_TABLE_LN) / sizeof (AGESA_MEM_TABLE_LN[0]);
-
-/* ***************************************************************************
- *   Optional User code to be included into the AGESA build
- *    These may be 32-bit call-out routines...
- */
-//AGESA_STATUS
-//AgesaReadSpd (
-//  IN        UINTN                 FcnData,
-//  IN OUT    AGESA_READ_SPD_PARAMS *ReadSpd
-//  )
-//{
-//  /* platform code to read an SPD...  */
-//  return Status;
-//}
-
-

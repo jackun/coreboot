@@ -64,7 +64,7 @@ static void *smp_write_config_table(void *v)
 	u32 apicid_sb800;
 	u32 apicid_rd890;
 	device_t dev;
-	u32 dword;
+	u32 *dword;
 
 	mc = (void *)(((char *)v) + SMP_FLOATING_TABLE_LEN);
 	mptable_init(mc, LOCAL_APIC_ADDR);
@@ -88,7 +88,7 @@ static void *smp_write_config_table(void *v)
 	dev = dev_find_slot(0, PCI_DEVFN(0x14, 0));
 	if (dev) {
 		/* Set sb800 IOAPIC ID */
-		dword = pci_read_config32(dev, 0x74) & 0xfffffff0;
+		dword = (u32 *)(uintptr_t)(pci_read_config32(dev, 0x74) & 0xfffffff0);
 		smp_write_ioapic(mc, apicid_sb800, 0x20, dword);
 
 		/*
@@ -109,7 +109,7 @@ static void *smp_write_config_table(void *v)
 		dev = dev_find_slot(0, PCI_DEVFN(0, 0));
 		if (dev) {
 			pci_write_config32(dev, 0xF8, 0x1); //IOAPICIND index 1/IOAPIC_VERSION_REGISTER?
-			dword = pci_read_config32(dev, 0xFC) & 0xfffffff0;
+			dword = (u32 *)(uintptr_t)(pci_read_config32(dev, 0xFC) & 0xfffffff0);
 			smp_write_ioapic(mc, apicid_rd890, 0x20, dword);
 		}
 
@@ -152,9 +152,9 @@ static void *smp_write_config_table(void *v)
 	PCI_INT(0x0, 0x14, 0x5, 0x12); /* OHCI0 Port 12~13 */
 
 	/* SATA */
-	//PCI_INT(0x0, 0x11, 0x0, 0x16); //6, INTG
+	PCI_INT(0x0, 0x11, 0x0, 0x16); //6, INTG
 	/* RAID */
-	PCI_INT(0x0, 0x11, 0x0, 0x10); //INTA
+	//PCI_INT(0x0, 0x11, 0x0, 0x10); //INTA
 
 	/* Eltron XCHI */
 	PCI_INT(0x2, 0x0, 0x0, 0x10); //INTA
