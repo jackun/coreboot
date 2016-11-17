@@ -17,7 +17,7 @@
 	url = https://github.com/coreboot/chrome-ec.git
 [submodule "libhwbase"]
 	path = 3rdparty/libhwbase
-	url = https://github.com/coreboot/libhwbase.git
+	url = https://review.coreboot.org/libhwbase.git
 [submodule "libgfxinit"]
 	path = 3rdparty/libgfxinit
-	url = https://github.com/coreboot/libgfxinit.git
+	url = https://review.coreboot.org/libgfxinit.git
